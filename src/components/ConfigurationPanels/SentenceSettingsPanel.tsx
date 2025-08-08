@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { PanelContainer } from "./PanelContainer";
+import { EducationalTooltip } from "@/components/educational/EducationalTooltip";
+import { getTooltipContent } from "@/lib/educational-tooltips";
 import { Type, BookOpen, Lightbulb, Info, Sparkles, BarChart3, Target } from "lucide-react";
 
 // Enhanced preset structure with educational content
@@ -194,6 +196,7 @@ export function SentenceSettingsPanel({
   };
 
   return (
+    <TooltipProvider>
     <PanelContainer
       title="Sentence & Text Settings"
       icon={<Type className="w-5 h-5" />}
@@ -224,10 +227,16 @@ export function SentenceSettingsPanel({
         {/* Enhanced Preset Selection */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-purple-600" />
-              Educational Examples
-            </label>
+            <EducationalTooltip
+              content={getTooltipContent('sentence-settings', 'educationalPresets')!}
+              placement="top"
+              size="md"
+            >
+              <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-purple-600" />
+                Educational Examples
+              </label>
+            </EducationalTooltip>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -245,7 +254,7 @@ export function SentenceSettingsPanel({
               </SelectTrigger>
               <SelectContent className="max-w-md">
                 {availablePresets.map((p) => (
-                  <SelectItem key={p.id} value={p.id} className="py-3">
+                  <SelectItem key={p.id} value={p.id} className="py-3" textValue={p.title}>
                     <div className="w-full">
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-medium text-sm">{p.title}</span>
@@ -312,13 +321,25 @@ export function SentenceSettingsPanel({
         {/* Custom Text Input with Analysis */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-gray-700">
-              Or type your own sentence
-            </label>
+            <EducationalTooltip
+              content={getTooltipContent('sentence-settings', 'textInput')!}
+              placement="top"
+              size="md"
+            >
+              <label className="text-sm font-medium text-gray-700">
+                Or type your own sentence
+              </label>
+            </EducationalTooltip>
             <div className="flex items-center gap-2">
-              <Badge className={`text-xs ${getComplexityColor(currentComplexity)}`}>
-                {currentComplexity}
-              </Badge>
+              <EducationalTooltip
+                content={getTooltipContent('sentence-settings', 'complexityIndicator')!}
+                placement="top"
+                size="sm"
+              >
+                <Badge className={`text-xs ${getComplexityColor(currentComplexity)}`}>
+                  {currentComplexity}
+                </Badge>
+              </EducationalTooltip>
               <Badge variant={isWithinLimit ? "default" : "destructive"} className="text-xs">
                 {tokenCount}/16 tokens
               </Badge>
@@ -343,7 +364,13 @@ export function SentenceSettingsPanel({
           {tokenCount > 0 && (
             <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-gray-700">Live Token Analysis</span>
+                <EducationalTooltip
+                  content={getTooltipContent('sentence-settings', 'tokenAnalysis')!}
+                  placement="top"
+                  size="md"
+                >
+                  <span className="text-xs font-medium text-gray-700">Live Token Analysis</span>
+                </EducationalTooltip>
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -432,5 +459,6 @@ export function SentenceSettingsPanel({
         </div>
       </div>
     </PanelContainer>
+    </TooltipProvider>
   );
 }

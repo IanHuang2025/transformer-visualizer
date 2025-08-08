@@ -58,7 +58,7 @@ export default function AnimatedVectorTable({
         isVisible: !animateTransformation || !isCalculating,
         isTransforming: false,
         transformationStep: 0,
-        animationDelay: getAnimationDelay(rowIndex * cols + colIndex)
+        animationDelay: _getAnimationDelay(rowIndex * cols + colIndex)
       }))
     );
     setCellStates(newCellStates);
@@ -102,7 +102,7 @@ export default function AnimatedVectorTable({
               return newStates;
             });
             resolve(void 0);
-          }, getAnimationDelay(row * cols + col));
+          }, _getAnimationDelay(row * cols + col));
         });
       }
       setTransformationProgress((row + 1) / rows * 50); // 50% for visibility
@@ -125,7 +125,7 @@ export default function AnimatedVectorTable({
               return newStates;
             });
             resolve(void 0);
-          }, getAnimationDelay(row * cols + col));
+          }, _getAnimationDelay(row * cols + col));
         });
       }
       setTransformationProgress(50 + (row + 1) / rows * 50); // 50-100% for transformation

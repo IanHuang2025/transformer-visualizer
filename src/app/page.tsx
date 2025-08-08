@@ -29,10 +29,19 @@ import { useWelcome } from "@/contexts/WelcomeContext";
   The math is faithful but small-dim and seeded for determinism. No external services.
 */
 
+import { SentenceSettingsPanel } from '@/components/ConfigurationPanels/SentenceSettingsPanel';
+import { AttentionHeadsPanel } from '@/components/ConfigurationPanels/AttentionHeadsPanel';
+import { PositionalEncodingsPanel } from '@/components/ConfigurationPanels/PositionalEncodingsPanel';
+import { CausalMaskPanel } from '@/components/ConfigurationPanels/CausalMaskPanel';
+import { SelectedTokenPanel } from '@/components/ConfigurationPanels/SelectedTokenPanel';
+import { EducationalSystem } from '@/components/Educational/EducationalSystem';
+
 // Mock animation hooks (to be replaced with full implementation later)
 const useAnimationClasses = () => ({
   enabled: true,
   tokenSelection: 'transition-all duration-300',
+  vectorTransform: 'transition-transform duration-500',
+  progressFill: 'transition-width duration-300',
   matrixCell: 'transition-all duration-300',  
   cardHover: 'hover:shadow-md transition-shadow duration-200',
   fadeInUp: 'animate-fade-in-up',
@@ -719,6 +728,17 @@ function TransformerVisualizerCore() {
 
   return (
     <TooltipProvider>
+      <EducationalSystem
+        activePanels={['sentence', 'heads', 'positional', 'causal', 'selected-token']}
+        currentSettings={{
+          text,
+          heads,
+          usePositional: usePos,
+          causal,
+          selectedToken,
+          selectedHead
+        }}
+      >
         <div className="p-4 md:p-6 max-w-[1200px] mx-auto space-y-4">
         {/* Welcome Modal */}
         <WelcomeModal 
@@ -759,68 +779,43 @@ function TransformerVisualizerCore() {
           </div>
         </div>
 
-        {/* Controls */}
-        <Card>
-          <CardContent className="pt-6 grid md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <label className="text-sm font-medium">Preset sentence</label>
-              <div className="flex gap-2">
-                <Select value={preset} onValueChange={(v) => { setPreset(v); const p = PRESETS.find(p => p.id === v)!; setText(p.text); setSelectedToken(0); }}>
-                  <SelectTrigger className="w-[240px]"><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {PRESETS.map(p => <SelectItem key={p.id} value={p.id}>{p.text}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-                <Button variant="outline" size="sm" onClick={() => setText(PRESETS.find(p => p.id === preset)!.text)}>Load</Button>
-              </div>
-              <label className="text-sm font-medium">Or type your own (max 16 tokens)</label>
-              <Input value={text} onChange={(e) => { 
-                setText(e.target.value); 
-                setSelectedToken(0); 
-                markInteraction('text-input', 'text-entered');
-              }} placeholder="Type a short sentence" />
-              <div className="text-xs text-muted-foreground">Tokens are split by spaces. Click a token chip below to inspect its attention.</div>
-            </div>
+        {/* Configuration Panels - New Educational Interface */}
+        <div className="space-y-3">
+          <SentenceSettingsPanel 
+            preset={preset}
+            text={text}
+            onPresetChange={setPreset}
+            onTextChange={setText}
+            onLoadPreset={() => {}} 
+            onTextInteraction={() => markInteraction('text-input', 'sentence-change')}
+          />
+          
+          <AttentionHeadsPanel
+            heads={heads}
+            onHeadsChange={setHeads}
+          />
+          
+          <PositionalEncodingsPanel
+            usePositional={usePos}
+            onPositionalChange={setUsePos}
+            onInteraction={() => markInteraction('attention-intro', 'positional-change')}
+          />
+          
+          <CausalMaskPanel
+            causalMask={causal}
+            onCausalMaskChange={setCausal}
+            onInteraction={() => markInteraction('attention-intro', 'causal-change')}
+          />
+          
+          <SelectedTokenPanel
+            selectedToken={selectedToken}
+            onTokenSelect={setSelectedToken}
+            tokens={tokens}
+            attentionWeights={headsData[selectedHead]?.Weights}
+            currentHead={selectedHead}
+          />
+        </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Heads: <span className="font-mono">{heads}</span></label>
-                <Slider value={[heads]} onValueChange={(v) => setHeads(v[0])} min={1} max={4} step={1} />
-                <div className="text-xs text-muted-foreground">Head dim = 4 → d_model = heads × 4 = {d_model}</div>
-              </div>
-              <div className="flex items-center justify-between rounded-xl border p-3">
-                <div>
-                  <div className="text-sm font-medium">Causal mask</div>
-                  <div className="text-xs text-muted-foreground">Prevents looking ahead (decoder-style)</div>
-                </div>
-                <Switch checked={causal} onCheckedChange={(checked) => {
-                  setCausal(checked);
-                  markInteraction('advanced-settings', 'setting-toggled');
-                }} />
-              </div>
-              <div className="flex items-center justify-between rounded-xl border p-3">
-                <div>
-                  <div className="text-sm font-medium">Positional encodings</div>
-                  <div className="text-xs text-muted-foreground">Adds order info (toy sin/cos)</div>
-                </div>
-                <Switch checked={usePos} onCheckedChange={(checked) => {
-                  setUsePos(checked);
-                  markInteraction('advanced-settings', 'setting-toggled');
-                }} />
-              </div>
-              <div className="flex items-center justify-between rounded-xl border p-3">
-                <div>
-                  <div className="text-sm font-medium">Selected token</div>
-                  <div className="text-xs text-muted-foreground">Index: {selectedToken}</div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button size="icon" variant="outline" onClick={() => setSelectedToken((i) => Math.max(0, i - 1))}><ChevronLeft className="w-4 h-4" /></Button>
-                  <Button size="icon" variant="outline" onClick={() => setSelectedToken((i) => Math.min(tokens.length - 1, i + 1))}><ChevronRight className="w-4 h-4" /></Button>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Token chips */}
         <Card>
@@ -872,7 +867,7 @@ function TransformerVisualizerCore() {
                     onPreviousStep={() => setStepIdx(Math.max(0, stepIdx - 1))}
                     onNextStep={() => {
                       // Mark current step as completed when advancing
-                      markInteraction(stepKey);
+                      markInteraction('attention-intro', stepKey);
                       setStepIdx(Math.min(STEPS.length - 1, stepIdx + 1));
                     }}
                   />
@@ -1230,6 +1225,7 @@ function TransformerVisualizerCore() {
           </CardContent>
         </Card>
         </div>
+      </EducationalSystem>
     </TooltipProvider>
   );
 }

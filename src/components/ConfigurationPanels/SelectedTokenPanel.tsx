@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { PanelContainer } from "./PanelContainer";
+import { EducationalTooltip } from "@/components/educational/EducationalTooltip";
+import { getTooltipContent } from "@/lib/educational-tooltips";
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -18,7 +20,7 @@ import {
   TrendingUp,
   ArrowRight,
   Lightbulb,
-  Compare,
+  GitCompare,
   RotateCcw
 } from "lucide-react";
 
@@ -234,6 +236,7 @@ export function SelectedTokenPanel({
   };
 
   return (
+    <TooltipProvider>
     <PanelContainer
       title="Token Analysis & Navigation"
       icon={<Target className="w-5 h-5" />}
@@ -272,7 +275,7 @@ export function SelectedTokenPanel({
                 onClick={() => setComparisonMode(!comparisonMode)}
                 className="text-xs"
               >
-                <Compare className="w-3 h-3 mr-1" />
+                <GitCompare className="w-3 h-3 mr-1" />
                 Compare
               </Button>
             </div>
@@ -299,10 +302,16 @@ export function SelectedTokenPanel({
         {/* Enhanced Navigation */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
-              <Eye className="w-4 h-4" />
-              Token Navigation
-            </span>
+            <EducationalTooltip
+              content={getTooltipContent('selected-token', 'tokenSelector')!}
+              placement="top"
+              size="md"
+            >
+              <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <Eye className="w-4 h-4" />
+                Token Navigation
+              </span>
+            </EducationalTooltip>
           </div>
           
           <div className="grid grid-cols-2 gap-3">
@@ -463,10 +472,16 @@ export function SelectedTokenPanel({
               {attentionStats && (
                 <Card className="border-blue-200">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-sm flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4 text-blue-600" />
-                      Attention Statistics
-                    </CardTitle>
+                    <EducationalTooltip
+                      content={getTooltipContent('selected-token', 'attentionWeights')!}
+                      placement="top"
+                      size="md"
+                    >
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-blue-600" />
+                        Attention Statistics
+                      </CardTitle>
+                    </EducationalTooltip>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="flex items-center justify-between">
@@ -509,7 +524,7 @@ export function SelectedTokenPanel({
           <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <Compare className="w-4 h-4 text-purple-600" />
+                <GitCompare className="w-4 h-4 text-purple-600" />
                 <span className="text-sm font-medium text-purple-900">Comparison Mode</span>
               </div>
               <Button
@@ -625,5 +640,6 @@ export function SelectedTokenPanel({
         </div>
       </div>
     </PanelContainer>
+    </TooltipProvider>
   );
 }

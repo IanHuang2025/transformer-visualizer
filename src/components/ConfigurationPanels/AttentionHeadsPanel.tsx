@@ -1,13 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { PanelContainer } from "./PanelContainer";
-import { Brain, Eye, Users, Target, Zap, AlertTriangle, Lightbulb, Play, GitMerge, Info } from "lucide-react";
+import { EducationalTooltip } from "@/components/educational/EducationalTooltip";
+import { getTooltipContent } from "@/lib/educational-tooltips";
+import { 
+  ComparisonView, 
+  useComparison, 
+  LivePreview, 
+  VisualIndicators, 
+  AttentionStrengthBar, 
+  HeadSpecializationDemo,
+  VisualizationConfig,
+  PreviewConfig
+} from "@/components/visualization";
+import { Brain, Eye, Users, Target, Zap, AlertTriangle, Lightbulb, Play, GitMerge, Info, BarChart3, FlaskConical } from "lucide-react";
 
 interface AttentionHeadsPanelProps {
   heads: number;
@@ -46,9 +58,85 @@ export function AttentionHeadsPanel({
   const [comparisonMode, setComparisonMode] = useState(false);
   const [showEducational, setShowEducational] = useState(false);
   const [selectedComparison, setSelectedComparison] = useState<[number, number]>([0, 1]);
+  const [showVisualization, setShowVisualization] = useState(false);
+  const [showDemo, setShowDemo] = useState(false);
+  const [showLivePreview, setShowLivePreview] = useState(false);
   
   const d_k = 4; // Fixed head dimension
   const d_model = heads * d_k;
+
+  // Generate visualization data
+  const visualizationConfig: VisualizationConfig = useMemo(() => {
+    const complexity = Math.min(heads / 8, 1); // Normalize complexity based on head count
+    const attentionStrengths = Array.from({ length: heads }, (_, i) => 
+      HEAD_SPECIALIZATIONS[i]?.pattern ? 0.6 + Math.random() * 0.3 : 0.3 + Math.random() * 0.4
+    );
+    
+    const patterns = HEAD_SPECIALIZATIONS.slice(0, heads).map((spec, i) => ({
+      pattern: spec.pattern,
+      confidence: attentionStrengths[i],
+      type: i < 2 ? 'syntax' as const : i < 4 ? 'semantic' as const : 'attention' as const
+    }));
+    
+    const connections = Array.from({ length: Math.min(heads * 2, 10) }, (_, i) => ({
+      from: { x: 50 + (i % 4) * 80, y: 50 + Math.floor(i / 4) * 60 },
+      to: { x: 100 + (i % 3) * 100, y: 80 + Math.floor(i / 3) * 50 },
+      strength: Math.random() * 0.8 + 0.2,
+      type: 'attention' as const
+    }));
+    
+    return { complexity, attentionStrengths, patterns, connections };
+  }, [heads]);
+
+  // Preview configuration
+  const previewConfig: PreviewConfig = useMemo(() => ({
+    heads,
+    sequenceLength: 20,
+    modelDimension: d_model,
+    useCausalMask: false,
+    selectedToken: 0
+  }), [heads, d_model]);
+
+  // Comparison setup
+  const currentConfig = {
+    id: 'current',
+    title: `${heads} Attention Heads`,
+    description: `Current configuration with ${heads} heads`,
+    content: <div className="p-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div><strong>Heads:</strong> {heads}</div>
+        <div><strong>Head Dim:</strong> {d_k}</div>
+        <div><strong>Model Dim:</strong> {d_model}</div>
+        <div><strong>Complexity:</strong> {(visualizationConfig.complexity * 100).toFixed(1)}%</div>
+      </div>
+    </div>,
+    metadata: {
+      complexity: visualizationConfig.complexity,
+      performance: heads <= 2 ? 'fast' as const : heads <= 6 ? 'moderate' as const : 'slow' as const,
+      accuracy: Math.max(0.7, 1 - visualizationConfig.complexity * 0.2)
+    }
+  };
+
+  const alternativeConfig = {
+    id: 'alternative',
+    title: `${Math.max(1, heads - 2)} Attention Heads (Alternative)`,
+    description: `Comparison configuration with ${Math.max(1, heads - 2)} heads`,
+    content: <div className="p-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div><strong>Heads:</strong> {Math.max(1, heads - 2)}</div>
+        <div><strong>Head Dim:</strong> {d_k}</div>
+        <div><strong>Model Dim:</strong> {Math.max(1, heads - 2) * d_k}</div>
+        <div><strong>Complexity:</strong> {(Math.max(1, heads - 2) / 8 * 100).toFixed(1)}%</div>
+      </div>
+    </div>,
+    metadata: {
+      complexity: Math.max(1, heads - 2) / 8,
+      performance: heads <= 3 ? 'fast' as const : heads <= 5 ? 'moderate' as const : 'slow' as const,
+      accuracy: Math.max(0.7, 1 - (Math.max(1, heads - 2) / 8) * 0.2)
+    }
+  };
+
+  const { leftItem, rightItem, swap } = useComparison(currentConfig, alternativeConfig);
 
   const handleHeadsChange = (value: number[]) => {
     onHeadsChange(value[0]);
@@ -84,10 +172,16 @@ export function AttentionHeadsPanel({
         {/* Quick Presets */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-              <Target className="w-4 h-4" />
-              Quick Presets
-            </label>
+            <EducationalTooltip
+              content={getTooltipContent('attention-heads', 'headPresets')!}
+              placement="top"
+              size="md"
+            >
+              <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <Target className="w-4 h-4" />
+                Quick Presets
+              </label>
+            </EducationalTooltip>
             <Button
               variant="outline"
               size="sm"
@@ -124,9 +218,15 @@ export function AttentionHeadsPanel({
         {/* Enhanced Heads Slider */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-gray-700">
-              Number of Attention Heads
-            </label>
+            <EducationalTooltip
+              content={getTooltipContent('attention-heads', 'headCount')!}
+              placement="top"
+              size="md"
+            >
+              <label className="text-sm font-medium text-gray-700">
+                Number of Attention Heads
+              </label>
+            </EducationalTooltip>
             <div className="text-lg font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">
               {heads}
             </div>
@@ -169,12 +269,24 @@ export function AttentionHeadsPanel({
         {/* Head Selector Tabs */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-              <Eye className="w-4 h-4" />
-              Head Inspector
-            </label>
+            <EducationalTooltip
+              content={getTooltipContent('attention-heads', 'headInspector')!}
+              placement="top"
+              size="md"
+            >
+              <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <Eye className="w-4 h-4" />
+                Head Inspector
+              </label>
+            </EducationalTooltip>
             <div className="flex items-center gap-2">
-              <label className="text-xs text-gray-600">Compare Mode</label>
+              <EducationalTooltip
+                content={getTooltipContent('attention-heads', 'comparisonMode')!}
+                placement="top"
+                size="sm"
+              >
+                <label className="text-xs text-gray-600">Compare Mode</label>
+              </EducationalTooltip>
               <Switch
                 checked={comparisonMode}
                 onCheckedChange={setComparisonMode}
@@ -287,6 +399,97 @@ export function AttentionHeadsPanel({
           )}
         </div>
 
+        {/* Visualization Controls */}
+        <div className="space-y-3 border-t pt-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-medium text-gray-700">Advanced Visualizations</h3>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowVisualization(!showVisualization)}
+              >
+                <BarChart3 className="w-4 h-4 mr-1" />
+                {showVisualization ? 'Hide' : 'Show'} Analytics
+              </Button>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowLivePreview(!showLivePreview)}
+              >
+                <Eye className="w-4 h-4 mr-1" />
+                {showLivePreview ? 'Hide' : 'Show'} Preview
+              </Button>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowDemo(!showDemo)}
+              >
+                <FlaskConical className="w-4 h-4 mr-1" />
+                {showDemo ? 'Hide' : 'Show'} Demo
+              </Button>
+            </div>
+          </div>
+
+          {/* Visual Indicators */}
+          {showVisualization && (
+            <div className="bg-gray-50 p-4 rounded-lg border">
+              <VisualIndicators
+                config={visualizationConfig}
+                showComplexity={true}
+                showAttentionStrengths={true}
+                showPatterns={true}
+                showConnections={false}
+                animated={true}
+              />
+            </div>
+          )}
+
+          {/* Live Preview */}
+          {showLivePreview && (
+            <div className="bg-gray-50 p-4 rounded-lg border">
+              <LivePreview
+                config={previewConfig}
+                onConfigChange={(newConfig) => {
+                  if (newConfig.heads !== heads) {
+                    onHeadsChange(newConfig.heads);
+                  }
+                }}
+                autoUpdate={true}
+                showThumbnails={true}
+                showMetrics={true}
+              />
+            </div>
+          )}
+
+          {/* Head Specialization Demo */}
+          {showDemo && (
+            <div className="bg-gray-50 p-4 rounded-lg border">
+              <HeadSpecializationDemo
+                sentence="The transformer model processes attention patterns efficiently"
+                numHeads={heads}
+                onHeadSelect={(headId) => setSelectedHead(headId)}
+              />
+            </div>
+          )}
+
+          {/* Configuration Comparison */}
+          {comparisonMode && (
+            <div className="bg-gray-50 p-4 rounded-lg border">
+              <ComparisonView
+                leftItem={leftItem}
+                rightItem={rightItem}
+                onSwap={swap}
+                showDifferences={true}
+                syncScrolling={true}
+                splitView={true}
+              />
+            </div>
+          )}
+        </div>
+
         {/* Educational Content */}
         {showEducational && (
           <div className="space-y-4 border-t pt-4">
@@ -334,27 +537,37 @@ export function AttentionHeadsPanel({
               </div>
             </div>
 
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full"
-              onClick={() => {
-                // Demo functionality - cycle through different head configurations
-                const demoSequence = [1, 2, 4, 6, 3];
-                let currentIndex = 0;
-                const interval = setInterval(() => {
-                  if (currentIndex < demoSequence.length) {
-                    onHeadsChange(demoSequence[currentIndex]);
-                    currentIndex++;
-                  } else {
-                    clearInterval(interval);
-                  }
-                }, 1500);
-              }}
-            >
-              <Play className="w-4 h-4 mr-2" />
-              See How Heads Specialize (Demo)
-            </Button>
+            <div className="grid grid-cols-2 gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  // Demo functionality - cycle through different head configurations
+                  const demoSequence = [1, 2, 4, 6, 3];
+                  let currentIndex = 0;
+                  const interval = setInterval(() => {
+                    if (currentIndex < demoSequence.length) {
+                      onHeadsChange(demoSequence[currentIndex]);
+                      currentIndex++;
+                    } else {
+                      clearInterval(interval);
+                    }
+                  }, 1500);
+                }}
+              >
+                <Play className="w-4 h-4 mr-2" />
+                Head Specialization Demo
+              </Button>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowDemo(true)}
+              >
+                <FlaskConical className="w-4 h-4 mr-2" />
+                Interactive Demo
+              </Button>
+            </div>
           </div>
         )}
 
