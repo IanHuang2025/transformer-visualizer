@@ -1,0 +1,296 @@
+
+> transformer-visualizer@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.4.6 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.0.0.230:3000
+
+ ✓ Starting...
+ ✓ Ready in 757ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1665ms
+ GET / 200 in 713ms
+ GET / 200 in 1894ms
+ ✓ Compiled /favicon.ico in 148ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 403ms
+ GET / 200 in 53ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 231ms
+ GET / 200 in 41ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 221ms
+ GET / 200 in 54ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 234ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 65ms
+ GET / 200 in 44ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 226ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 63ms
+ GET / 200 in 172ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 238ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 44ms
+ GET / 200 in 108ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 232ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 47ms
+ GET / 200 in 115ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 227ms
+ GET / 200 in 57ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 238ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 37ms
+ GET / 200 in 128ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 227ms
+ GET / 200 in 43ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 257ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 34ms
+ GET / 200 in 124ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 220ms
+ GET / 200 in 57ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 227ms
+ GET / 200 in 58ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 225ms
+ GET / 200 in 56ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 227ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 55ms
+ GET / 200 in 139ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 222ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 44ms
+ GET / 200 in 138ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 220ms
+ GET / 200 in 42ms
+ GET / 200 in 53ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 230ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 45ms
+ GET / 200 in 125ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 221ms
+ GET / 200 in 31ms
+ GET / 200 in 103ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 236ms
+ GET / 200 in 70ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 222ms
+ GET / 200 in 55ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 294ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 90ms
+ GET / 200 in 146ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 220ms
+ GET / 200 in 29ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 605ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.g6gj0ojrhqo'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.g6gj0ojrhqo'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.jug97rveoh8'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.jug97rveoh8'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.jlmohjkf3fn'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.jlmohjkf3fn'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.l2ixsz4ou7l'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.l2ixsz4ou7l'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.q7sgqi9as4g'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.q7sgqi9as4g'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.xturnbqzi18'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.xturnbqzi18'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.l0imp4pocjt'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.l0imp4pocjt'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.n0p4a7fces'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.n0p4a7fces'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.d6jb28o26es'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.d6jb28o26es'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.zllz4n9kys'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.zllz4n9kys'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.882ku0whik3'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.882ku0whik3'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.d1txsn5dkje'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.d1txsn5dkje'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.5nfk9nonov2'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.5nfk9nonov2'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.vi0mjk2gv5'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.vi0mjk2gv5'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.dpiessmu9wc'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/static/development/_buildManifest.js.tmp.dpiessmu9wc'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/pages/_app/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/pages/_app/build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/page/app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/pages/_app/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/pages/_app/build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/pages/_app/build-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/pages/_app/build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/apple/Development/transformer-visualizer/.next/server/app/favicon.ico/[__metadata_id__]/route/app-paths-manifest.json'
+}
+[?25h
